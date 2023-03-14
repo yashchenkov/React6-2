@@ -16,7 +16,9 @@ export default function Notes() {
   
   
   if(notes.length > 0) {
-    return(<div className="notes">
+    return(
+
+      <div className="notes">
     	{notes.map((note) => {
     		<Note {...note} remove={(id) => {
     			setNotes(() => {
@@ -24,6 +26,17 @@ export default function Notes() {
           });
     		}} />
     	})}
-    </div>);
+    </div>
+    );
+  } else {
+    return(
+      <div className="update">
+        <span>Notes</span>
+        <button type="submit" onClick={(evt) => {
+          evt.preventDefault();
+          setNotes(connector('GET'))
+        }}>update</button>
+      </div>
+      )
   }
 }

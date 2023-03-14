@@ -9,7 +9,7 @@ export default function NewNote() {
   	console.log(evt);
   	setText(evt.target.value);
   }
-  const handleSubmit = (evt) => {
+  const handleSubmit =  (evt) => {
   	evt.preventDefault();
   	setData({
   		id: nanoid(),
@@ -28,7 +28,7 @@ export default function NewNote() {
   		    value={text}
   		    onChange={handleChange}/>
   		</label>
-  		<button type="submit" />
+  		<button type="submit" onClick={handleSubmit}/>
   	</form>
   	)
 }
