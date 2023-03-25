@@ -9,14 +9,15 @@ export default function NewNote() {
   	console.log(evt);
   	setText(evt.target.value);
   }
-  const handleSubmit =  (evt) => {
+  const handleSubmit = async (evt) => {
   	evt.preventDefault();
   	setData({
   		id: nanoid(),
   		content: text
   	});
   	console.log(data);
-  	connector('POST', data);
+  	await connector('POST', data);
+    await connector('GET', data);
   }
   
   return(

@@ -8,10 +8,17 @@ import connector from '../API/Connector';
 
 export default function Notes() {
   const [ notes, setNotes ] = useState([]);
+  const fetchFunc = async (method, data = '') => {
+      const response = await connector(method, data);
+      setNotes(response);
+  }
   useEffect(() => {
-      setNotes(connector('GET'));
-      console.log(notes);
-    }, []);
+    const funcInit = async () => {
+      await fetchFunc('GET');
+    }
+    funcInit();
+    console.log(notes);
+  }, []);
 
   
   
@@ -20,10 +27,8 @@ export default function Notes() {
 
       <div className="notes">
     	{notes.map((note) => {
-    		<Note {...note} remove={(id) => {
-    			setNotes(() => {
-            connector('DELETE', id);
-          });
+    		<Note {...note} remove={async (id) => {
+          await fetchFunc('DELETE', id)
     		}} />
     	})}
     </div>
@@ -32,9 +37,9 @@ export default function Notes() {
     return(
       <div className="update">
         <span>Notes</span>
-        <button type="submit" onClick={(evt) => {
+        <button type="submit" onClick={async (evt) => {
           evt.preventDefault();
-          setNotes(connector('GET'))
+          fetchFunc('GET')
         }}>update</button>
       </div>
       )
