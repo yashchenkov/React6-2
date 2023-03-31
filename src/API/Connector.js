@@ -1,4 +1,4 @@
-export default async function connector(method, id = undefined, data = {}) {
+export default async function connector(method, data = {} ,id = undefined, ) {
 	console.log(data);
   if(method === 'GET') {
   	const response = await fetch('http://localhost:7777/notes', {
@@ -8,8 +8,12 @@ export default async function connector(method, id = undefined, data = {}) {
     console.log(list);
     return list;
   } else if(method === 'POST') {
+    console.log(data)
     const response = await fetch('http://localhost:7777/notes', {
-  	  method: method,
+  	  headers: {
+        "Content-Type": "application/JSON"
+      },
+      method: method,
   	  body: JSON.stringify(data)
     });
     console.log(response);

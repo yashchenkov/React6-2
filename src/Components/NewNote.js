@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import connector from '../API/Connector';
 import {nanoid} from 'nanoid';
 
 export default function NewNote() {
-  const [ data, setData ] = useState({});
+  const [ data, setData ] = useState({content: ''});
   const [ text, setText ] = useState('');
+  
+
   const handleChange = (evt) => {
-  	console.log(evt);
   	setText(evt.target.value);
+    console.log(text);
   }
+
   const handleSubmit = async (evt) => {
   	evt.preventDefault();
+    
+    console.log(text);
   	setData({
-  		id: nanoid(),
   		content: text
   	});
+    setText('')
   	console.log(data);
   	await connector('POST', data);
-    await connector('GET', data);
+    
   }
   
   return(
