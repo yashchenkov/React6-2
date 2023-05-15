@@ -12,17 +12,14 @@ export default function Notes() {
   const fetchFunc = async () => {
       const response = await connector('GET');
       console.log(response)
-      setNotes([...response]);
+      setNotes(response);
       console.log(notes)
-      if(notes.length > 0) {
-        setElements(notes.map((note) => {
-          <li><Note key={note.id} {...note} remove={async (id) => {
-            await connector('DELETE', id)
-          }} /></li>
-        }));
-        console.log(elements);
-      }
   }
+
+  const updateHandler = async (evt) => {
+    evt.preventDefault();
+      fetchFunc()
+    }
 
   useEffect(() => {
     async function funcInit() {
@@ -37,13 +34,17 @@ export default function Notes() {
       <React.Fragment >
       <div className="update">
         <span>Notes</span>
-        <button type="submit" onClick={async (evt) => {
-          evt.preventDefault();
-          fetchFunc()
-        }}>update</button>
+        <button type="submit" onClick={updateHandler}>update</button>
       </div>
       <ul className="notes">
-    	{elements}
+    	{notes.map((note) => {
+         if(note.content !== ''){
+          return <li><Note key={note.id} {...note} remove={async (id) => {
+            await connector('DELETE', id)
+            await connector('GET')
+          }} /></li>
+        }
+        })}
     </ul>
     </React.Fragment>
     );
@@ -51,10 +52,7 @@ export default function Notes() {
     return(
       <div className="update">
         <span>Notes</span>
-        <button type="submit" onClick={async (evt) => {
-          evt.preventDefault();
-          fetchFunc()
-        }}>update</button>
+        <button type="submit" onClick={updateHandler}>update</button>
         <div><span>записей нет</span></div>
       </div>
       )

@@ -1,5 +1,5 @@
 export default async function connector(method, data = {} ,id = undefined, ) {
-	console.log(data);
+	console.log(id, method, data);
   if(method === 'GET') {
   	const response = await fetch('http://localhost:7777/notes', {
   	  method: method
@@ -9,6 +9,7 @@ export default async function connector(method, data = {} ,id = undefined, ) {
     return list;
   } else if(method === 'POST') {
     console.log(data)
+    if(data.content !== ''){ 
     const response = await fetch('http://localhost:7777/notes', {
   	  headers: {
         "Content-Type": "application/JSON"
@@ -19,8 +20,11 @@ export default async function connector(method, data = {} ,id = undefined, ) {
     console.log(response);
     //const json = await response.json();
     //return json;
+  } else {
+    console.alert('НЕЛЬЗЯ ВВОДИТЬ ПУСТЫЕ ДАННЫЕ')
+  }
   } else if(method === 'DELETE') {
-  	const response = await fetch(`http://localhost:7777/notes/${id}`, {
+  	const response = await fetch(`http://localhost:7777/notes/${data}`, {
   		method: method
   	});
     const json = await response.json();

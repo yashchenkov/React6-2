@@ -8,11 +8,11 @@ export default function Note(props) {
   return(
     <div className="note">
       <div className="area">
-        content
+        {content}
       </div>
-      <button type="submit" onClick={(evt) => {
+      <button type="submit" onClick={async (evt) => {
         evt.preventDefault();
-        remove(id);
+        await remove(id);
       }}>del</button>
     </div>
     )
