@@ -40,8 +40,9 @@ export default function Notes() {
     	{notes.map((note) => {
          if(note.content !== ''){
           return <li><Note key={note.id} {...note} remove={async (id) => {
+            console.log(id)
             await connector('DELETE', id)
-            await connector('GET')
+            await fetchFunc();
           }} /></li>
         }
         })}

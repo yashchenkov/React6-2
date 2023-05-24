@@ -21,7 +21,7 @@ export default async function connector(method, data = {} ,id = undefined, ) {
     //const json = await response.json();
     //return json;
   } else {
-    console.alert('НЕЛЬЗЯ ВВОДИТЬ ПУСТЫЕ ДАННЫЕ')
+    console.error('НЕЛЬЗЯ ВВОДИТЬ ПУСТЫЕ ДАННЫЕ')
   }
   } else if(method === 'DELETE') {
   	const response = await fetch(`http://localhost:7777/notes/${data}`, {
